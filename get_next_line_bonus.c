@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: berbay <berbay@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:35:06 by berbay            #+#    #+#             */
-/*   Updated: 2023/02/21 17:42:15 by berbay           ###   ########.fr       */
+/*   Updated: 2023/02/21 18:01:20 by berbay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_read(int fd, char *str)
 {
@@ -40,14 +40,14 @@ char	*ft_read(int fd, char *str)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*str;
+	static char	*strs[256];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	str = ft_read(fd, str);
-	if (!str)
+	strs[fd] = ft_read(fd, strs[fd]);
+	if (!strs[fd])
 		return (NULL);
-	line = ft_new_line(str);
-	str = ft_new_str(str);
+	line = ft_new_line(strs[fd]);
+	strs[fd] = ft_new_str(strs[fd]);
 	return (line);
 }
